@@ -3,6 +3,7 @@
 
 import settings
 import requests
+import sys
 
 # create slack channels list 
 channels = {}
@@ -10,6 +11,8 @@ non_member_channels = {}
 # get user_id
 url = "https://slack.com/api/auth.test?token={token}".format(token=settings.token)
 response = requests.get(url).json()
+if not response["ok"]:
+  sys.exit("[!] Wrong Api Key: you should add a correct Slack Token to slackClient/settings.py.")
 user_id = response["user_id"]
 
 # get channels that our user already member to show him
